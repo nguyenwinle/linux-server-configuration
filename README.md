@@ -11,3 +11,18 @@ Learn how to access, secure, and perform the initial configuration of a bare-bon
 
 Deploying web applications to a publicly accessible server is the first step in getting users
 Properly securing application ensures my application remains stable and that my user’s data is safe
+
+1. Login to working environment
+Install packages:
+sudo apt-get install upgrade
+sudo apt-get install update
+sudo apt-get install finger
+
+2. Connect using ssh
+
+Add New User
+1. add new user
+sudo adduser grader
+pw: grader
+confirm grader is created:
+sudo cat /etc/passwd

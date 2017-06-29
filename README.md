@@ -14,8 +14,8 @@ Properly securing application ensures my application remains stable and that my 
 
 1. Login to working environment
 Install packages:
-sudo apt-get install upgrade
-sudo apt-get install update
+sudo apt-get update
+sudo apt-get upgrade
 sudo apt-get install finger
 
 2. Connect using ssh

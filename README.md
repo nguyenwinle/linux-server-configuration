@@ -26,3 +26,36 @@ sudo adduser grader
 pw: grader
 confirm grader is created:
 sudo cat /etc/passwd
+sudo ls /etc/sudoers.d
+
+giving sudo access to user
+  change 90-init-cloud-users file to grader
+sudo cp /etc/sudoers.d/90-init-cloud-users /etc/sudoers.d/grader
+sudo nano /etc/sudoers.d/grader
+  change ubuntu to grader
+  
+2nd way authentication user (key-based authorization)
+generate key pair on local machine, not server. 
+open new shell (never share private key)
+  ssh-keygen
+  create keygen in folder name as you like. I called mine linuxCourse
+  linuxCourse.pub will be placed on server to enable Key based authorization
+  
+Installing Public Key (placed in remote server so ssh can use to login)
+In grader environment
+  sudo su - grader
+  mkdir .ssh
+  touch .ssh/authorized_keys
+  
+In new shell
+  cat .ssh/linuxCourse.pub
+    copy text
+ 
+In grader Environment
+  nano .ssh/authorized_keys
+    paste text
+  chmod 700 .ssh
+  chmod 644 .ssh/authorized_keys
+  
+
+  

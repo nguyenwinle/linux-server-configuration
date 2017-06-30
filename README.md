@@ -112,8 +112,6 @@ Paste this code:
     ServerName 52.35.64.122
     ServerAlias ec2-52-35-64-122.us-west-2.compute.amazonaws.com
     ServerAdmin admin@52.35.64.122
-    WSGIDaemonProcess catalog python-path=/var/www/catalog:/var/www/catalog/venv/lib/python2.7/site-packages
-    WSGIProcessGroup catalog
     WSGIScriptAlias / /var/www/catalog/catalog.wsgi
     <Directory /var/www/catalog/catalog/>
         Order allow,deny
@@ -124,9 +122,9 @@ Paste this code:
         Order allow,deny
         Allow from all
     </Directory>
-    ErrorLog ${APACHE_LOG_DIR}/error.log
+    ErrorLog /var/log/apache2/error.log
     LogLevel warn
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    CustomLog /var/log/apache2/access.log combined
 </VirtualHost>
 
 Enable the virtual host sudo a2ensite catalog

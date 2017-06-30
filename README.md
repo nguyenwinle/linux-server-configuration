@@ -74,6 +74,22 @@ Run sudo apt-get install libapache2-mod-wsgi python-dev
 Enable mod_wsgi with sudo a2enmod wsgi
 Start the web server with sudo service apache2 start
 
+Clone the Catalog app from Github
+Install git using: sudo apt-get install git
+cd /var/www
+sudo mkdir catalog
+Change owner of the newly created catalog folder sudo chown -R grader:grader catalog
+cd /catalog
+Clone your project from github git clone https://github.com/nguyenwinle/itemcatalog.git catalog
+
+Create a catalog.wsgi file, then add this inside:
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0, "/var/www/catalog/")
+
+from catalog import app as application
+application.secret_key = 'supersecretkey'
 
 sudo apt-get install python-pip
 Install Flask pip install Flask

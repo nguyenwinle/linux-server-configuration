@@ -86,3 +86,49 @@ Activate the virutal environment source venv/bin/activate
 Change permissions sudo chmod -R 777 venv
 
 
+Update path of client_secrets.json file
+nano __init__.py
+Change client_secrets.json path to /var/www/catalog/catalog/client_secrets.json
+Configure and enable a new virtual host
+Run this: sudo nano /etc/apache2/sites-available/catalog.conf
+Paste this code:
+<VirtualHost *:80>
+    ServerName 52.35.64.122
+    ServerAlias ec2-52-35-64-122.us-west-2.compute.amazonaws.com
+    ServerAdmin admin@52.35.64.122
+    WSGIDaemonProcess catalog python-path=/var/www/catalog:/var/www/catalog/venv/lib/python2.7/site-packages
+    WSGIProcessGroup catalog
+    WSGIScriptAlias / /var/www/catalog/catalog.wsgi
+    <Directory /var/www/catalog/catalog/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    Alias /static /var/www/catalog/catalog/static
+    <Directory /var/www/catalog/catalog/static/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    LogLevel warn
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+Enable the virtual host sudo a2ensite catalog
+Install and configure PostgreSQL
+sudo apt-get install libpq-dev python-dev
+sudo apt-get install postgresql postgresql-contrib
+sudo su - postgres
+psql
+CREATE USER catalog WITH PASSWORD 'password';
+ALTER USER catalog CREATEDB;
+CREATE DATABASE catalog WITH OWNER catalog;
+\c catalog
+REVOKE ALL ON SCHEMA public FROM public;
+GRANT ALL ON SCHEMA public TO catalog;
+\q
+exit
+Change create engine line in your __init__.py and database_setup.py to: engine = create_engine('postgresql://catalog:password@localhost/catalog')
+python database_setup.py
+python __init__.py
+
+

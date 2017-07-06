@@ -12,6 +12,8 @@ Learn how to access, secure, and perform the initial configuration of a bare-bon
 Deploying web applications to a publicly accessible server is the first step in getting users
 Properly securing application ensures my application remains stable and that my user’s data is safe
 
+Project can be viewed here: ec2-52-35-64-122.us-west-2.compute.amazonaws.com
+
 1. Login to working environment
 Install packages:
 sudo apt-get update

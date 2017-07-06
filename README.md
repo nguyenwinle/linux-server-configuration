@@ -1,6 +1,5 @@
 # Linux Configuration Server
 
-
 Project Overview
 In this project, I will be using a Linux virtual machine configurated to support the Item Catalog website. I will then deploy my application and will be learning about using the Apache HTTP Server to develop and maintain an open-source HTTP server for modern operating systems including UNIX and Windows.
 
@@ -110,6 +109,8 @@ Change permissions sudo chmod -R 777 venv
 Update path of client_secrets.json file
 nano __init__.py
 Change client_secrets.json path to /var/www/catalog/catalog/client_secrets.json
+Change fb_client_secrets.json path to /var/www/catalog/catalog/fb_client_secrets.json
+
 Configure and enable a new virtual host
 Run this: sudo nano /etc/apache2/sites-available/catalog.conf
 Paste this code:
@@ -150,4 +151,16 @@ Change create engine line in your __init__.py and database_setup.py to: engine =
 python database_setup.py
 python __init__.py
 
+use ctrl + q to quit
 
+
+Make sure no remote connections to the database are allowed. Check if the contents of this file sudo nano /etc/postgresql/9.3/main/pg_hba.conf looks like this:
+local   all             postgres                                peer
+local   all             all                                     peer
+host    all             all             127.0.0.1/32            md5
+host    all             all             ::1/128                 md5
+
+Restart Apache2:
+sudo service apache2 restart
+
+View project here 52.35.64.122

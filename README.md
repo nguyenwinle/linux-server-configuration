@@ -85,13 +85,16 @@ cd /catalog
 Clone your project from github git clone https://github.com/nguyenwinle/itemcatalog.git catalog
 
 Create a catalog.wsgi file, then add this inside:
+activate_this = '/var/www/catalog/catalog/database_setup.py'
+execfile(activate_this, dict(__file__=activate_this))
+
 import sys
 import logging
 logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0, "/var/www/catalog/")
 
 from catalog import app as application
-application.secret_key = 'supersecretkey'
+application.secret_key = 'super_secret_key'
 
 sudo apt-get install python-pip
 Install Flask pip install Flask

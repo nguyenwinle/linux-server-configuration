@@ -133,6 +133,7 @@ Paste this code:
     CustomLog /var/log/apache2/access.log combined
 </VirtualHost>
 
+
 Enable the virtual host sudo a2ensite catalog
 Install and configure PostgreSQL
 sudo apt-get install libpq-dev python-dev
@@ -152,6 +153,7 @@ python database_setup.py
 python __init__.py
 
 use ctrl + q to quit
+
 
 
 Make sure no remote connections to the database are allowed. Check if the contents of this file sudo nano /etc/postgresql/9.3/main/pg_hba.conf looks like this:

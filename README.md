@@ -11,7 +11,7 @@ Learn how to access, secure, and perform the initial configuration of a bare-bon
 Deploying web applications to a publicly accessible server is the first step in getting users
 Properly securing application ensures my application remains stable and that my user’s data is safe
 
-Project can be viewed here: ec2-52-35-64-122.us-west-2.compute.amazonaws.com
+Project can be viewed here: ec2-52-43-28-190.us-west-2.compute.amazonaws.com
 
 1. Login to working environment
 Install packages:
@@ -77,10 +77,13 @@ Run sudo dpkg-reconfigure tzdata and then choose UTC
 firewall
 in AWS instane, add port tcp 2200 and port udp 123 in your Networking
 change port to 2200
+sudo nano /etc/ssh/sshd_config
+sudo service ssh restart
 confirm port in local machine shell
-ssh -i keygen -p 2200 ubuntu@public-key
+ssh -i keygen grader@52.43.28.190 -p 2200
 
 Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
+sudo ufw allow ssh
 sudo ufw allow 2200/tcp
 sudo ufw allow 80/tcp
 sudo ufw allow 123/udp
@@ -106,10 +109,12 @@ Install git using: sudo apt-get install git
 cd /var/www
 sudo mkdir catalog
 Change owner of the newly created catalog folder sudo chown -R grader:grader catalog
-cd /catalog
+cd catalog
 Clone your project from github git clone https://github.com/nguyenwinle/itemcatalog.git catalog
-
+rename project.py to __init__.py
+mv project.py __init__.py
 Create a catalog.wsgi file, then add this inside:
+sudo nano catalog.wsgi
 activate_this = '/var/www/catalog/catalog/database_setup.py'
 execfile(activate_this, dict(__file__=activate_this))
 
@@ -123,7 +128,8 @@ application.secret_key = 'super_secret_key'
 
 sudo apt-get install python-pip
 Install Flask pip install Flask
-Install other project dependencies sudo pip install httplib2 oauth2client sqlalchemy psycopg2 sqlalchemy_utils
+Install other project dependencies 
+sudo pip install httplib2 oauth2client sqlalchemy psycopg2 sqlalchemy_utils
 
 Install virtual environment
 Install the virtual environment sudo pip install virtualenv
@@ -141,9 +147,9 @@ Configure and enable a new virtual host
 Run this: sudo nano /etc/apache2/sites-available/catalog.conf
 Paste this code:
 <VirtualHost *:80>
-    ServerName 52.35.64.122
-    ServerAlias ec2-52-35-64-122.us-west-2.compute.amazonaws.com
-    ServerAdmin admin@52.35.64.122
+    ServerName 52.43.28.190
+    ServerAlias ec2-52-43-28-190.us-west-2.compute.amazonaws.com
+    ServerAdmin admin@52.43.28.190
     WSGIScriptAlias / /var/www/catalog/catalog.wsgi
     <Directory /var/www/catalog/catalog/>
         Order allow,deny
@@ -176,6 +182,13 @@ GRANT ALL ON SCHEMA public TO catalog;
 exit
 Change create engine line in your __init__.py and database_setup.py to: engine = create_engine('postgresql://catalog:password@localhost/catalog')
 python database_setup.py
+pip install sqlalchemy
+pip install psycopg2
+pip install jinja2
+pip install flask
+pip install oauth2client
+pip install requests
+
 python __init__.py
 
 use ctrl + q to quit
@@ -191,4 +204,5 @@ host    all             all             ::1/128                 md5
 Restart Apache2:
 sudo service apache2 restart
 
-View project here 52.35.64.122
+View project here 52.43.28.190
+

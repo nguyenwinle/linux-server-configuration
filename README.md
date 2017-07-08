@@ -19,7 +19,16 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install finger
 
+
 2. Connect using ssh
+Create new development environment.
+Download private keys and write down your public IP address.
+Move the private key file into the folder ~/.ssh:
+$ mv ~/Downloads/udacity_key.rsa ~/.ssh/
+Set file rights (only owner can write and read.):
+$ chmod 600 ~/.ssh/udacity_key.rsa
+SSH into the instance:
+<pre>$ ssh -i ~/.ssh/udacity_key.rsa root@PUPLIC-IP-ADDRESS
 
 Add New User
 1. add new user
@@ -36,10 +45,10 @@ sudo nano /etc/sudoers.d/grader
   change ubuntu to grader
 2nd way authentication user (key-based authorization)
 generate key pair on local machine, not server. 
-open new shell (never share private key)
+open new shell in local machine (never share private key)
   ssh-keygen
-  create keygen in folder name as you like. I called mine linuxCourse
-  linuxCourse.pub will be placed on server to enable Key based authorization
+  create keygen in .ssh folder. I called mine linux
+  linux.pub will be placed on server to enable Key based authorization
   
 Installing Public Key (placed in remote server so ssh can use to login)
 In grader environment
@@ -56,16 +65,33 @@ In grader Environment
     paste text
 Set the ssh file permissions:
   chmod 700 .ssh
-  chmod 644 .ssh/authorized_keys
+  chmod 600 .ssh/authorized_keys
   
+In local machine
+ssh -i keygen grader@52.43.28.190
+
+
 Configure the local timezone to UTC
 Run sudo dpkg-reconfigure tzdata and then choose UTC
 
 firewall
-
+in AWS instane, add port tcp 2200 and port udp 123 in your Networking
 change port to 2200
+confirm port in local machine shell
+ssh -i keygen -p 2200 ubuntu@public-key
+
+Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
+sudo ufw allow 2200/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 123/udp
+sudo ufw enable
 
 disable root login
+Run sudo nano /etc/ssh/sshd_config
+Change PermitRootLogin without-password line to PermitRootLogin no
+Restart ssh with sudo service ssh restart
+Now you are only able to login using ssh -i keygen -p 2200 ubuntu@public-key
+
 
 Install Apache
 sudo apt-get install apache2

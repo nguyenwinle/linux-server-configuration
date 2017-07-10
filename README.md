@@ -61,7 +61,7 @@ In new shell
     copy text
  
 In grader Environment
-  nano .ssh/authorized_keys
+  sudo nano .ssh/authorized_keys
     paste text
 Set the ssh file permissions:
   chmod 700 .ssh
@@ -115,9 +115,10 @@ rename project.py to __init__.py
 mv project.py __init__.py
 Create a catalog.wsgi file, then add this inside:
 sudo nano catalog.wsgi
+
 activate_this = '/var/www/catalog/catalog/database_setup.py'
 execfile(activate_this, dict(__file__=activate_this))
-
+#!/usr/bin/python
 import sys
 import logging
 logging.basicConfig(stream=sys.stderr)
@@ -149,7 +150,8 @@ Paste this code:
 <VirtualHost *:80>
     ServerName 52.43.28.190
     ServerAlias ec2-52-43-28-190.us-west-2.compute.amazonaws.com
-    ServerAdmin admin@52.43.28.190
+    WSGIDaemonProcess catalog python-path=/var/www/catalog:/var/www/catalog/venv/lib/python2.7/site-packages
+    WSGIProcessGroup catalog
     WSGIScriptAlias / /var/www/catalog/catalog.wsgi
     <Directory /var/www/catalog/catalog/>
         Order allow,deny
@@ -164,6 +166,7 @@ Paste this code:
     LogLevel warn
     CustomLog /var/log/apache2/access.log combined
 </VirtualHost>
+
 
 
 Enable the virtual host sudo a2ensite catalog

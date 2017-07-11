@@ -3,7 +3,7 @@ Project Overview
 
 In this project, I will be using a Linux virtual machine configurated to support the Item Catalog website. I will then deploy my application and will be learning about using the Apache HTTP Server to develop and maintain an open-source HTTP server for modern operating systems including UNIX and Windows.
 
-Project can be viewed [here](ec2-52-43-28-190.us-west-2.compute.amazonaws.com).
+Project can be viewed [here](http://ec2-52-43-28-190.us-west-2.compute.amazonaws.com).
 
 ### 1. Log into working environment (for example, Ubuntu)
 Install the following packages using sudo:
@@ -232,5 +232,5 @@ Check if the contents of this file:
 Restart Apache2:
 - sudo service apache2 restart
 
-View project [here](52.43.28.190)
+View project [here](http://ec2-52-43-28-190.us-west-2.compute.amazonaws.com)
 

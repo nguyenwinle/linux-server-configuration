@@ -1,9 +1,11 @@
 # Linux Configuration Server
 Project Overview
 
-In this project, I will be using a Linux virtual machine configurated to support the Item Catalog website. I will then deploy my application and will be learning about using the Apache HTTP Server to develop and maintain an open-source HTTP server for modern operating systems including UNIX and Windows.
+In this project, I used Amazon Web Services to support my Item Catalog application. I was able to deploy my application onto Amazon's server and learned how to use the Apache HTTP Server to develop and maintain an open-source HTTP server for modern operating systems including UNIX and Windows.
 
 Project can be viewed [here](http://ec2-52-43-28-190.us-west-2.compute.amazonaws.com).
+
+## Here are the following steps I took to deploy my project:
 
 ### 1. Log into working environment (for example, Ubuntu)
 Install the following packages using sudo:

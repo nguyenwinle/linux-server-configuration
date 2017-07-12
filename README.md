@@ -35,6 +35,7 @@ Confirm grader is created:
 Change 90-cloud-init-users file to grader. 
 - sudo cp /etc/sudoers.d/90-cloud-init-users /etc/sudoers.d/grader
 - sudo nano /etc/sudoers.d/grader
+
   Change ubuntu to grader
 
 ### 5. 2nd Way Authentication User (Key-Based Authorization)
@@ -86,7 +87,7 @@ Configure the Uncomplicated Firewall (UFW) to only allow incoming connections fo
 
 ### 12. Disable root login
 - sudo nano /etc/ssh/sshd_config
-Change PermitRootLogin without-password line to PermitRootLogin no
+= Change PermitRootLogin without-password line to PermitRootLogin no
 
 Restart ssh 
 - sudo service ssh restart
@@ -220,7 +221,7 @@ Change create engine line in your __init__.py and database_setup.py to:
 - python database_setup.py
 
 Install following packages: 
-- pip install sqlalchemy, psycopg2, jinja2, flask, oauth2client, requests
+- pip install sqlalchemy psycopg2 jinja2 flask oauth2client requests
 
 ### 21. Make sure no remote connections to the database are allowed
 Check if the contents of this file:

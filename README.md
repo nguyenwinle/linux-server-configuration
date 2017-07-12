@@ -43,6 +43,7 @@ Open new shell in local machine (never share private key).
 Create keygen in .ssh folder. I called mine "keygen":
 - ssh-keygen
 - /c/Users/nguyen le/.ssh/keygen
+
 keygen.pub will be placed on server to enable Key based authorization
 
 ### 6. Installing Public Key (placed in remote server so ssh can use to login)

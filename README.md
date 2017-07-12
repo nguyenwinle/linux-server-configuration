@@ -1,7 +1,7 @@
 # Linux Configuration Server
 Project Overview
 
-In this project, I used Amazon Web Services to support my Item Catalog application. I was able to deploy my application onto Amazon's server and learned how to use the Apache HTTP Server to develop and maintain an open-source HTTP server for modern operating systems including UNIX and Windows.
+In this project, I used Amazon Web Services to support my Item Catalog application. I learned how to install and configure a web and database server and deployed my application onto Amazon's server
 
 Project can be viewed [here](http://ec2-52-43-28-190.us-west-2.compute.amazonaws.com).
 

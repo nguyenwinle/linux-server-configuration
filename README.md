@@ -85,6 +85,9 @@ Configure the Uncomplicated Firewall (UFW) to only allow incoming connections fo
 - sudo ufw allow 123/udp
 - sudo ufw enable
 
+Disable port 22:
+- sudo ufw deny 22
+
 ### 12. Disable root login
 - sudo nano /etc/ssh/sshd_config
 = Change PermitRootLogin without-password line to PermitRootLogin no
@@ -148,7 +151,42 @@ Add the following into wsgi file:
 Install other project dependencies:
 - sudo pip install httplib2 oauth2client sqlalchemy psycopg2 sqlalchemy_utils
 
-### 16. Install virtual environment
+Auto update server by installing and configuring unattended-upgrades:
+- sudo apt-get install unattended-upgrades
+
+To enable it:
+- sudo dpkg-reconfigure --priority=low unattended-upgrades
+
+### 16. Configuration to monitor repeated unsuccessful login attempts and ban attackers
+Install Fireban
+- sudo apt-get install fail2ban
+
+Copy the default configuration file:
+- sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
+Open the local config file:
+- sudo nano /etc/fail2ban/jail.local
+
+Set the following parameters to ban an IP address for 1800 seconds and send an email to the address specified:
+
+  set bantime  = 1800  
+  destemail = YOURNAME@DOMAIN  
+  action = %(action_mwl)s  
+  under [ssh] change port = 2220  
+  
+Install sendmail for email notice:
+- sudo apt-get install sendmail iptables-persistent
+
+To stop fail2ban:
+- sudo service fail2ban stop
+
+To start fail2ban:
+- sudo service fail2ban start
+
+Check the new rules:
+- sudo iptables -S
+
+### 17. Install virtual environment
 - sudo pip install virtualenv
 
 Create a new virtual environment with:
@@ -160,7 +198,7 @@ Activate the virutal environment:
 Change permissions: 
 - sudo chmod -R 777 venv
 
-### 17. Update path of client_secrets.json file
+### 18. Update path of client_secrets.json file
 - nano __init__.py
 
 Change client_secrets.json path:
@@ -169,7 +207,7 @@ Change client_secrets.json path:
 Change fb_client_secrets.json path:
 - /var/www/catalog/catalog/fb_client_secrets.json
 
-### 18. Configure and Enable a New Virtual Host
+### 19. Configure and Enable a New Virtual Host
 - sudo nano /etc/apache2/sites-available/catalog.conf
 
 Paste this code:
